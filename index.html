@@ -57,6 +57,36 @@
         
         /* Reduce Motion Override */
         .reduce-motion * { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+
+        /* Glass Overlay Section for 3D website vibe */
+        .glass-overlay-section {
+            position: relative;
+            z-index: 20;
+            margin-top: -3.5rem; 
+            border-top-left-radius: 3.5rem;
+            border-top-right-radius: 3.5rem;
+            background-color: rgba(249, 250, 251, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: 0 -20px 40px rgba(0,0,0,0.08);
+            border-top: 1px solid rgba(255,255,255,0.6);
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+        .dark .glass-overlay-section {
+            background-color: rgba(15, 23, 42, 0.85);
+            box-shadow: 0 -20px 50px rgba(0,0,0,0.5);
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        /* Hide scrollbar for horizontal scrolling */
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        /* Progress Bar Animation for Quiz */
+        @keyframes progress {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(0); }
+        }
     </style>
 </head>
 <body class="bg-gray-50 text-slate-900 dark:bg-slate-900 dark:text-gray-100 antialiased font-sans overflow-x-hidden selection:bg-brand-blue selection:text-white relative">
@@ -72,7 +102,7 @@
     <header x-data="{ mobileMenuOpen: false, scrolled: false }" 
             @scroll.window="scrolled = (window.pageYOffset > 20)"
             :class="scrolled ? 'bg-white/80 dark:bg-slate-900/80 backdrop-blur-lg shadow-md py-3' : 'bg-white/90 dark:bg-slate-900/90 py-5'"
-            class="sticky top-0 z-50 transition-all duration-300 w-full border-b border-gray-100 dark:border-slate-800 relative z-50 backdrop-blur-md">
+            class="sticky top-0 transition-all duration-300 w-full border-b border-gray-100 dark:border-slate-800 relative z-[60] backdrop-blur-md">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center transition-all duration-300">
                 
@@ -124,8 +154,8 @@
         </div>
     </header>
 
-    <section id="hero-section" class="hero-bg py-32 lg:py-48 px-4 text-left flex items-center min-h-[75vh] relative overflow-hidden border-b-8 border-brand-blue">
-        <div class="absolute inset-0 bg-gradient-to-t from-gray-50/80 dark:from-slate-900/80 via-transparent to-transparent z-0 backdrop-blur-[2px]"></div>
+    <section id="hero-section" class="hero-bg pb-40 pt-32 lg:pt-48 px-4 text-left flex items-center min-h-[85vh] relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-t from-gray-50 dark:from-slate-900 via-transparent to-transparent z-0 backdrop-blur-[2px]"></div>
         <div class="max-w-7xl mx-auto w-full relative z-10">
             <div class="max-w-2xl text-white relative z-20">
                 <span data-aos="fade-right" class="inline-block py-1.5 px-5 rounded-full bg-brand-blue/30 border border-brand-blue/50 text-blue-200 text-xs font-black uppercase tracking-widest mb-6 backdrop-blur-md shadow-glow pointer-events-auto">
@@ -145,36 +175,38 @@
         </div>
     </section>
 
-    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 relative z-20 pointer-events-none mt-10">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <a href="#" data-aos="fade-up" data-aos-delay="0" class="group relative h-64 rounded-3xl overflow-hidden shadow-2xl cursor-pointer pointer-events-auto">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent z-10 transition-colors duration-300 group-hover:from-brand-blue/90"></div>
-                <img loading="lazy" src="https://images.unsplash.com/photo-1574169208507-84376144848b?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Beginner">
-                <div class="absolute bottom-6 left-6 z-20">
-                    <h3 class="text-white font-heading font-black text-3xl mb-1 tracking-tight">Beginner</h3>
-                    <p class="text-gray-300 text-sm font-bold flex items-center transform translate-y-4 opacity-0 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">Start Flying <i class="fa-solid fa-arrow-right ml-2"></i></p>
-                </div>
-            </a>
-            <a href="#" data-aos="fade-up" data-aos-delay="100" class="group relative h-64 rounded-3xl overflow-hidden shadow-2xl cursor-pointer border-2 border-brand-blue pointer-events-auto">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent z-10 transition-colors duration-300 group-hover:from-brand-accent/90"></div>
-                <img loading="lazy" src="https://images.unsplash.com/photo-1524143986875-3b098d78b363?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Intermediate">
-                <div class="absolute bottom-6 left-6 z-20">
-                    <h3 class="text-white font-heading font-black text-3xl mb-1 tracking-tight">Intermediate</h3>
-                    <p class="text-white text-sm font-bold flex items-center transform translate-y-4 opacity-0 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">Level Up <i class="fa-solid fa-arrow-right ml-2"></i></p>
-                </div>
-            </a>
-            <a href="#" data-aos="fade-up" data-aos-delay="200" class="group relative h-64 rounded-3xl overflow-hidden shadow-2xl cursor-pointer pointer-events-auto">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent z-10 transition-colors duration-300 group-hover:from-purple-600/90"></div>
-                <img loading="lazy" src="https://hinaray.com/wp-content/uploads/2025/08/Advanced-Military-Drones.jpg" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Advanced">
-                <div class="absolute bottom-6 left-6 z-20">
-                    <h3 class="text-white font-heading font-black text-3xl mb-1 tracking-tight">Advanced</h3>
-                    <p class="text-gray-300 text-sm font-bold flex items-center transform translate-y-4 opacity-0 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">Go Pro <i class="fa-solid fa-arrow-right ml-2"></i></p>
-                </div>
-            </a>
+    <section class="glass-overlay-section py-16 pointer-events-none">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <a href="#" data-aos="fade-up" data-aos-delay="0" class="group relative h-64 rounded-3xl overflow-hidden shadow-2xl cursor-pointer pointer-events-auto">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent z-10 transition-colors duration-300 group-hover:from-brand-blue/90"></div>
+                    <img loading="lazy" src="https://images.unsplash.com/photo-1574169208507-84376144848b?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Beginner">
+                    <div class="absolute bottom-6 left-6 z-20">
+                        <h3 class="text-white font-heading font-black text-3xl mb-1 tracking-tight">Beginner</h3>
+                        <p class="text-gray-300 text-sm font-bold flex items-center transform translate-y-4 opacity-0 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">Start Flying <i class="fa-solid fa-arrow-right ml-2"></i></p>
+                    </div>
+                </a>
+                <a href="#" data-aos="fade-up" data-aos-delay="100" class="group relative h-64 rounded-3xl overflow-hidden shadow-2xl cursor-pointer border-2 border-brand-blue pointer-events-auto">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent z-10 transition-colors duration-300 group-hover:from-brand-accent/90"></div>
+                    <img loading="lazy" src="https://images.unsplash.com/photo-1524143986875-3b098d78b363?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Intermediate">
+                    <div class="absolute bottom-6 left-6 z-20">
+                        <h3 class="text-white font-heading font-black text-3xl mb-1 tracking-tight">Intermediate</h3>
+                        <p class="text-white text-sm font-bold flex items-center transform translate-y-4 opacity-0 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">Level Up <i class="fa-solid fa-arrow-right ml-2"></i></p>
+                    </div>
+                </a>
+                <a href="#" data-aos="fade-up" data-aos-delay="200" class="group relative h-64 rounded-3xl overflow-hidden shadow-2xl cursor-pointer pointer-events-auto">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent z-10 transition-colors duration-300 group-hover:from-purple-600/90"></div>
+                    <img loading="lazy" src="https://hinaray.com/wp-content/uploads/2025/08/Advanced-Military-Drones.jpg" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Advanced">
+                    <div class="absolute bottom-6 left-6 z-20">
+                        <h3 class="text-white font-heading font-black text-3xl mb-1 tracking-tight">Advanced</h3>
+                        <p class="text-gray-300 text-sm font-bold flex items-center transform translate-y-4 opacity-0 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">Go Pro <i class="fa-solid fa-arrow-right ml-2"></i></p>
+                    </div>
+                </a>
+            </div>
         </div>
     </section>
 
-    <section id="quiz" class="max-w-6xl mx-auto px-4 py-20 relative z-20 pointer-events-none" x-data="{ 
+    <section id="quiz" class="glass-overlay-section py-20 pointer-events-none" x-data="{ 
         step: 1, 
         answers: { exp: '', env: '', budget: '' },
         result: null,
@@ -187,216 +219,223 @@
                 this.result = { name: 'Orbital-V10 4K HD', price: 39.50, img: 'https://images.unsplash.com/photo-1524143986875-3b098d78b363?q=80&w=400&auto=format&fit=crop' };
             }
             this.step = 5;
-            setTimeout(() => this.step = 6, 1500);
+            setTimeout(() => this.step = 6, 3500); // Improved longer transition
         }
     }">
-        <div data-aos="zoom-in" class="bg-slate-900/80 dark:bg-slate-950/80 backdrop-blur-xl rounded-[3rem] p-10 md:p-16 text-center text-white shadow-2xl border border-slate-700 relative overflow-hidden pointer-events-auto min-h-[450px] flex flex-col justify-center">
-            <div class="absolute top-0 right-0 p-10 opacity-5 text-[15rem] leading-none transform rotate-12"><i class="fa-solid fa-rocket"></i></div>
-            
-            <div x-show="step === 1" x-transition class="relative z-10">
-                <div class="w-16 h-16 bg-brand-blue/20 text-brand-blue rounded-full flex items-center justify-center mx-auto mb-6 text-3xl shadow-glow">
-                    <i class="fa-solid fa-microchip"></i>
+        <div class="max-w-6xl mx-auto px-4">
+            <div data-aos="zoom-in" class="bg-slate-900/90 dark:bg-slate-950/90 backdrop-blur-xl rounded-[3rem] p-10 md:p-16 text-center text-white shadow-2xl border border-slate-700 relative overflow-hidden pointer-events-auto min-h-[450px] flex flex-col justify-center">
+                <div class="absolute top-0 right-0 p-10 opacity-5 text-[15rem] leading-none transform rotate-12"><i class="fa-solid fa-rocket"></i></div>
+                
+                <div x-show="step === 1" x-transition:enter="transition ease-out duration-500" x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0" class="relative z-10">
+                    <div class="w-16 h-16 bg-brand-blue/20 text-brand-blue rounded-full flex items-center justify-center mx-auto mb-6 text-3xl shadow-glow">
+                        <i class="fa-solid fa-microchip"></i>
+                    </div>
+                    <h2 class="text-3xl md:text-5xl font-heading font-black mb-4">Find Your Perfect Flight</h2>
+                    <p class="text-gray-400 mb-10 max-w-xl mx-auto text-lg">Answer 3 quick questions. Our AI matching engine will pinpoint the exact RC Minidrone built for your skill and style.</p>
+                    <button @click="step = 2" @mouseenter="playHaptic" class="bg-brand-blue hover:bg-blue-500 text-white font-black uppercase tracking-widest py-4 px-12 rounded-full transition-all shadow-glow hover:scale-105 pointer-events-auto hover-vibrate">Start the Quiz</button>
                 </div>
-                <h2 class="text-3xl md:text-5xl font-heading font-black mb-4">Find Your Perfect Flight</h2>
-                <p class="text-gray-400 mb-10 max-w-xl mx-auto text-lg">Answer 3 quick questions. Our AI matching engine will pinpoint the exact RC Minidrone built for your skill and style.</p>
-                <button @click="step = 2" @mouseenter="playHaptic" class="bg-brand-blue hover:bg-blue-500 text-white font-black uppercase tracking-widest py-4 px-12 rounded-full transition-all shadow-glow hover:scale-105 pointer-events-auto hover-vibrate">Start the Quiz</button>
-            </div>
 
-            <div x-show="step === 2" x-transition style="display: none;" class="relative z-10">
-                <span class="text-brand-blue font-black tracking-widest text-xs uppercase bg-brand-blue/10 px-4 py-1 rounded-full">STEP 01/03</span>
-                <h2 class="text-3xl font-heading font-black mt-6 mb-10">What's your pilot experience level?</h2>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <button @click="answers.exp = 'beginner'; step = 3" class="p-8 border-2 border-slate-700 rounded-3xl hover:bg-brand-blue hover:border-brand-blue transition-all group flex flex-col items-center pointer-events-auto">
-                        <i class="fa-solid fa-paper-plane text-4xl mb-4 text-gray-500 group-hover:text-white transition-colors"></i><span class="font-bold text-lg">First Time Flyer</span>
-                    </button>
-                    <button @click="answers.exp = 'intermediate'; step = 3" class="p-8 border-2 border-slate-700 rounded-3xl hover:bg-brand-blue hover:border-brand-blue transition-all group flex flex-col items-center pointer-events-auto">
-                        <i class="fa-solid fa-gamepad text-4xl mb-4 text-gray-500 group-hover:text-white transition-colors"></i><span class="font-bold text-lg">I've Had a Few</span>
-                    </button>
-                    <button @click="answers.exp = 'pro'; step = 3" class="p-8 border-2 border-slate-700 rounded-3xl hover:bg-brand-blue hover:border-brand-blue transition-all group flex flex-col items-center pointer-events-auto">
-                        <i class="fa-solid fa-fighter-jet text-4xl mb-4 text-gray-500 group-hover:text-white transition-colors"></i><span class="font-bold text-lg">Acrobatic Pro</span>
-                    </button>
+                <div x-show="step === 2" x-transition:enter="transition ease-out duration-500" x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0" style="display: none;" class="relative z-10">
+                    <span class="text-brand-blue font-black tracking-widest text-xs uppercase bg-brand-blue/10 px-4 py-1 rounded-full">STEP 01/03</span>
+                    <h2 class="text-3xl font-heading font-black mt-6 mb-10">What's your pilot experience level?</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <button @click="answers.exp = 'beginner'; step = 3" class="p-8 border-2 border-slate-700 rounded-3xl hover:bg-brand-blue hover:border-brand-blue transition-all group flex flex-col items-center pointer-events-auto">
+                            <i class="fa-solid fa-paper-plane text-4xl mb-4 text-gray-500 group-hover:text-white transition-colors"></i><span class="font-bold text-lg">First Time Flyer</span>
+                        </button>
+                        <button @click="answers.exp = 'intermediate'; step = 3" class="p-8 border-2 border-slate-700 rounded-3xl hover:bg-brand-blue hover:border-brand-blue transition-all group flex flex-col items-center pointer-events-auto">
+                            <i class="fa-solid fa-gamepad text-4xl mb-4 text-gray-500 group-hover:text-white transition-colors"></i><span class="font-bold text-lg">I've Had a Few</span>
+                        </button>
+                        <button @click="answers.exp = 'pro'; step = 3" class="p-8 border-2 border-slate-700 rounded-3xl hover:bg-brand-blue hover:border-brand-blue transition-all group flex flex-col items-center pointer-events-auto">
+                            <i class="fa-solid fa-fighter-jet text-4xl mb-4 text-gray-500 group-hover:text-white transition-colors"></i><span class="font-bold text-lg">Acrobatic Pro</span>
+                        </button>
+                    </div>
                 </div>
-            </div>
 
-            <div x-show="step === 3" x-transition style="display: none;" class="relative z-10">
-                <span class="text-brand-blue font-black tracking-widest text-xs uppercase bg-brand-blue/10 px-4 py-1 rounded-full">STEP 02/03</span>
-                <h2 class="text-3xl font-heading font-black mt-6 mb-10">Where will you fly the most?</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-2xl mx-auto">
-                    <button @click="answers.env = 'indoor'; step = 4" class="p-6 border-2 border-slate-700 rounded-3xl hover:bg-brand-blue hover:border-brand-blue transition-all group pointer-events-auto font-bold text-lg">Indoors / Backyard</button>
-                    <button @click="answers.env = 'outdoor'; step = 4" class="p-6 border-2 border-slate-700 rounded-3xl hover:bg-brand-blue hover:border-brand-blue transition-all group pointer-events-auto font-bold text-lg">High Altitude Outdoors</button>
+                <div x-show="step === 3" x-transition:enter="transition ease-out duration-500" x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0" style="display: none;" class="relative z-10">
+                    <span class="text-brand-blue font-black tracking-widest text-xs uppercase bg-brand-blue/10 px-4 py-1 rounded-full">STEP 02/03</span>
+                    <h2 class="text-3xl font-heading font-black mt-6 mb-10">Where will you fly the most?</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-2xl mx-auto">
+                        <button @click="answers.env = 'indoor'; step = 4" class="p-6 border-2 border-slate-700 rounded-3xl hover:bg-brand-blue hover:border-brand-blue transition-all group pointer-events-auto font-bold text-lg">Indoors / Backyard</button>
+                        <button @click="answers.env = 'outdoor'; step = 4" class="p-6 border-2 border-slate-700 rounded-3xl hover:bg-brand-blue hover:border-brand-blue transition-all group pointer-events-auto font-bold text-lg">High Altitude Outdoors</button>
+                    </div>
                 </div>
-            </div>
 
-            <div x-show="step === 4" x-transition style="display: none;" class="relative z-10">
-                <span class="text-brand-blue font-black tracking-widest text-xs uppercase bg-brand-blue/10 px-4 py-1 rounded-full">STEP 03/03</span>
-                <h2 class="text-3xl font-heading font-black mt-6 mb-10">What is your budget?</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-2xl mx-auto">
-                    <button @click="answers.budget = 'low'; calculateResult()" class="p-6 border-2 border-slate-700 rounded-3xl hover:bg-brand-blue hover:border-brand-blue transition-all group pointer-events-auto font-bold text-lg">Under $45</button>
-                    <button @click="answers.budget = 'high'; calculateResult()" class="p-6 border-2 border-slate-700 rounded-3xl hover:bg-brand-blue hover:border-brand-blue transition-all group pointer-events-auto font-bold text-lg">Premium ($50+)</button>
+                <div x-show="step === 4" x-transition:enter="transition ease-out duration-500" x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0" style="display: none;" class="relative z-10">
+                    <span class="text-brand-blue font-black tracking-widest text-xs uppercase bg-brand-blue/10 px-4 py-1 rounded-full">STEP 03/03</span>
+                    <h2 class="text-3xl font-heading font-black mt-6 mb-10">What is your budget?</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-2xl mx-auto">
+                        <button @click="answers.budget = 'low'; calculateResult()" class="p-6 border-2 border-slate-700 rounded-3xl hover:bg-brand-blue hover:border-brand-blue transition-all group pointer-events-auto font-bold text-lg">Under $45</button>
+                        <button @click="answers.budget = 'high'; calculateResult()" class="p-6 border-2 border-slate-700 rounded-3xl hover:bg-brand-blue hover:border-brand-blue transition-all group pointer-events-auto font-bold text-lg">Premium ($50+)</button>
+                    </div>
                 </div>
-            </div>
 
-            <div x-show="step === 5" x-transition style="display: none;" class="relative z-10">
-                <i class="fa-solid fa-satellite-dish text-5xl text-brand-blue animate-ping mb-6"></i>
-                <h2 class="text-2xl font-heading font-black">Calibrating Match...</h2>
-            </div>
-            
-            <div x-show="step === 6" x-transition style="display: none;" class="relative z-10">
-                <span class="text-green-400 font-black tracking-widest text-xs uppercase mb-4 block"><i class="fa-solid fa-check-circle mr-1"></i> 99% Match Found</span>
-                <h2 class="text-4xl font-heading font-black mb-8" x-text="result?.name"></h2>
-                <img :src="result?.img" class="w-48 h-48 object-cover rounded-2xl mx-auto mb-6 border-4 border-slate-700 shadow-2xl" alt="Result">
-                <div class="flex justify-center gap-4">
-                    <button @click="step = 1" class="border border-slate-600 hover:bg-slate-700 text-white font-black uppercase tracking-widest py-4 px-8 rounded-full transition-all pointer-events-auto text-xs">Retake Quiz</button>
-                    <button @click="cartCount++; step = 1" @mouseenter="playHaptic" class="bg-brand-accent hover:bg-orange-600 text-white font-black uppercase tracking-widest py-4 px-12 rounded-full transition-all hover:scale-105 pointer-events-auto hover-vibrate">
-                        Add to Cart - $<span x-text="result?.price"></span>
-                    </button>
+                <div x-show="step === 5" x-transition:enter="transition ease-out duration-500" x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0" style="display: none;" class="relative z-10 max-w-lg mx-auto">
+                    <i class="fa-solid fa-satellite-dish text-5xl text-brand-blue animate-ping mb-6"></i>
+                    <h2 class="text-2xl font-heading font-black mb-4">Calibrating Match...</h2>
+                    <div class="w-full bg-slate-800 h-2 rounded-full mt-6 overflow-hidden border border-slate-700">
+                        <div class="bg-gradient-to-r from-brand-blue to-purple-500 h-full w-full shadow-glow" style="animation: progress 3.5s ease-in-out forwards;"></div>
+                    </div>
+                </div>
+                
+                <div x-show="step === 6" x-transition:enter="transition ease-out duration-500" x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0" style="display: none;" class="relative z-10">
+                    <span class="text-green-400 font-black tracking-widest text-xs uppercase mb-4 block"><i class="fa-solid fa-check-circle mr-1"></i> 99% Match Found</span>
+                    <h2 class="text-4xl font-heading font-black mb-8" x-text="result?.name"></h2>
+                    <img :src="result?.img" class="w-48 h-48 object-cover rounded-2xl mx-auto mb-6 border-4 border-slate-700 shadow-2xl" alt="Result">
+                    <div class="flex justify-center gap-4">
+                        <button @click="step = 1" class="border border-slate-600 hover:bg-slate-700 text-white font-black uppercase tracking-widest py-4 px-8 rounded-full transition-all pointer-events-auto text-xs">Retake Quiz</button>
+                        <button @click="cartCount++; step = 1" @mouseenter="playHaptic" class="bg-brand-accent hover:bg-orange-600 text-white font-black uppercase tracking-widest py-4 px-12 rounded-full transition-all hover:scale-105 pointer-events-auto hover-vibrate">
+                            Add to Cart - $<span x-text="result?.price"></span>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="trending" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 relative z-20 pointer-events-none">
-        <div class="flex flex-col md:flex-row justify-between items-end mb-12 pointer-events-auto" data-aos="fade-right">
-            <div>
-                <div class="flex items-center gap-3 mb-2">
-                    <span class="h-1 w-10 bg-brand-blue rounded-full"></span>
-                    <span class="text-brand-blue font-black uppercase tracking-widest text-xs">Top Sellers</span>
-                </div>
-                <h2 class="text-4xl md:text-5xl font-heading font-black text-brand-dark dark:text-white">TRENDING DRONES</h2>
-            </div>
-        </div>
-        
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            
-            <div data-aos="fade-up" class="group bg-white/80 dark:bg-slate-800/80 backdrop-blur-md rounded-3xl p-5 shadow-lg border border-gray-100 dark:border-slate-700 hover:border-brand-blue transition-all duration-300 flex flex-col h-full relative pointer-events-auto" x-data="{ hover: false }" @mouseenter="hover = true" @mouseleave="hover = false">
-                <div class="relative rounded-2xl bg-gray-100 dark:bg-slate-900 mb-5 h-64 overflow-hidden flex items-center justify-center">
-                    <span class="absolute top-4 left-4 bg-red-500 text-white text-[10px] font-black tracking-wider px-3 py-1.5 rounded-full z-20 shadow-md">SALE</span>
-                    <img x-show="!hover" loading="lazy" src="https://rc-minidrones.com/cdn/shop/files/e88g.webp?v=1702244390&width=360" class="w-full h-full object-cover absolute inset-0 z-10">
-                    <img x-show="hover" loading="lazy" src="https://rc-minidrones.com/cdn/shop/files/e88g.webp?v=1702244390&width=360" class="w-full h-full object-cover scale-110 transition-transform duration-[5s] ease-linear absolute inset-0 z-10 opacity-90">
-                    <div x-show="hover" x-transition class="absolute inset-0 z-30 flex items-center justify-center bg-black/40 backdrop-blur-sm">
-                        <button @click="quickViewOpen = true; activeProduct = {name: 'ORBITAL-E88B PRO', price: '30.76', img: 'https://rc-minidrones.com/cdn/shop/files/e88g.webp?v=1702244390&width=360'}" class="bg-white text-brand-dark font-black uppercase text-xs tracking-widest px-6 py-3 rounded-full hover:bg-brand-blue hover:text-white transition-all transform hover:scale-105">Quick View</button>
+    <section id="trending" class="glass-overlay-section py-20 pointer-events-none">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-12 pointer-events-auto" data-aos="fade-right">
+                <div>
+                    <div class="flex items-center gap-3 mb-2">
+                        <span class="h-1 w-10 bg-brand-blue rounded-full"></span>
+                        <span class="text-brand-blue font-black uppercase tracking-widest text-xs">Top Sellers</span>
                     </div>
-                </div>
-                <div class="flex-grow">
-                    <div class="flex justify-between items-start mb-2"><div class="text-[10px] text-gray-500 dark:text-gray-400 uppercase font-black tracking-widest">Selfie Drone</div><div class="text-yellow-400 text-xs"><i class="fa-solid fa-star"></i> 4.7</div></div>
-                    <h3 class="font-heading font-bold text-xl text-brand-dark dark:text-white leading-tight mb-3 group-hover:text-brand-blue transition-colors">ORBITAL-E88B PRO</h3>
-                </div>
-                <div class="mt-4 flex justify-between items-end pt-4 border-t border-gray-100 dark:border-slate-700">
-                    <div><span class="text-sm text-gray-400 line-through font-semibold block">$58.00</span><span class="font-black text-3xl text-brand-dark dark:text-white">$30.76</span></div>
-                    <button @click="cartCount++" @mouseenter="playHaptic" class="bg-brand-dark dark:bg-white text-white dark:text-brand-dark hover:bg-brand-blue hover:text-white w-12 h-12 rounded-2xl flex items-center justify-center transition-all hover:-translate-y-1 pointer-events-auto hover-vibrate"><i class="fa-solid fa-plus text-xl"></i></button>
-                </div>
-            </div>
-
-            <div data-aos="fade-up" data-aos-delay="100" class="group bg-white/80 dark:bg-slate-800/80 backdrop-blur-md rounded-3xl p-5 shadow-2xl border-2 border-brand-blue flex flex-col h-full relative overflow-hidden pointer-events-auto" x-data="{ hover: false }" @mouseenter="hover = true" @mouseleave="hover = false">
-                <div class="absolute top-0 right-0 bg-brand-blue text-white text-[10px] font-black px-8 py-1.5 transform translate-x-6 translate-y-4 rotate-45 z-30 shadow-md uppercase tracking-widest">Best Value</div>
-                <div class="relative rounded-2xl bg-gray-100 dark:bg-slate-900 mb-5 h-64 overflow-hidden">
-                    <span class="absolute top-4 left-4 bg-red-500 text-white text-[10px] font-black tracking-wider px-3 py-1.5 rounded-full z-20">SALE</span>
-                    <img x-show="!hover" loading="lazy" src="https://images.unsplash.com/photo-1524143986875-3b098d78b363?q=80&w=600&auto=format&fit=crop" class="w-full h-full object-cover absolute inset-0 z-10">
-                    <img x-show="hover" loading="lazy" src="https://images.unsplash.com/photo-1473968512647-3e447244af8f?q=80&w=600&auto=format&fit=crop" class="w-full h-full object-cover scale-110 transition-transform duration-[5s] ease-linear absolute inset-0 z-10 opacity-90">
-                    <div x-show="hover" x-transition class="absolute inset-0 z-30 flex items-center justify-center bg-black/40 backdrop-blur-sm">
-                        <button @click="quickViewOpen = true; activeProduct = {name: 'Orbital-V10 4K HD Drone', price: '39.50', img: 'https://images.unsplash.com/photo-1524143986875-3b098d78b363?q=80&w=600&auto=format&fit=crop'}" class="bg-white text-brand-dark font-black uppercase text-xs tracking-widest px-6 py-3 rounded-full hover:bg-brand-blue hover:text-white transition-all transform hover:scale-105">Quick View</button>
-                    </div>
-                </div>
-                <div class="flex-grow">
-                    <div class="flex justify-between items-start mb-2"><div class="text-[10px] text-brand-blue uppercase font-black tracking-widest">Dual Camera HD</div><div class="text-yellow-400 text-xs"><i class="fa-solid fa-star"></i> 4.9</div></div>
-                    <h3 class="font-heading font-bold text-xl text-brand-dark dark:text-white leading-tight mb-3">Orbital-V10 4K HD Drone</h3>
-                </div>
-                <div class="mt-4 flex justify-between items-end pt-4 border-t border-gray-100 dark:border-slate-700">
-                    <div><span class="text-sm text-gray-400 line-through font-semibold block">$59.00</span><span class="font-black text-3xl text-brand-dark dark:text-white">$39.50</span></div>
-                    <button @click="cartCount++" @mouseenter="playHaptic" class="bg-brand-blue text-white w-12 h-12 rounded-2xl flex items-center justify-center transition-all shadow-glow hover:-translate-y-1 hover:scale-105 pointer-events-auto hover-vibrate"><i class="fa-solid fa-cart-plus text-xl"></i></button>
+                    <h2 class="text-4xl md:text-5xl font-heading font-black text-brand-dark dark:text-white">TRENDING DRONES</h2>
                 </div>
             </div>
             
-            <div data-aos="fade-up" data-aos-delay="200" class="group bg-white/80 dark:bg-slate-800/80 backdrop-blur-md rounded-3xl p-5 shadow-lg border border-gray-100 dark:border-slate-700 hover:border-brand-blue transition-all duration-300 flex flex-col h-full relative pointer-events-auto" x-data="{ hover: false }" @mouseenter="hover = true" @mouseleave="hover = false">
-                <div class="relative rounded-2xl bg-gray-100 dark:bg-slate-900 mb-5 h-64 overflow-hidden flex items-center justify-center">
-                    <span class="absolute top-4 left-4 bg-red-500 text-white text-[10px] font-black tracking-wider px-3 py-1.5 rounded-full z-20 shadow-md">SALE</span>
-                    <img x-show="!hover" loading="lazy" src="https://rc-minidrones.com/cdn/shop/files/9dd6dd3bb5aaa8bd77c672fe91e7b980.webp?v=1707259210&width=360" class="w-full h-full object-cover absolute inset-0 z-10">
-                    <img x-show="hover" loading="lazy" src="https://rc-minidrones.com/cdn/shop/files/9dd6dd3bb5aaa8bd77c672fe91e7b980.webp?v=1707259210&width=360" class="w-full h-full object-cover scale-110 transition-transform duration-[5s] ease-linear absolute inset-0 z-10 opacity-90">
-                    <div x-show="hover" x-transition class="absolute inset-0 z-30 flex items-center justify-center bg-black/40 backdrop-blur-sm">
-                        <button @click="quickViewOpen = true; activeProduct = {name: 'ORBITAL-K9032 GPS Drone', price: '88.65', img: 'https://rc-minidrones.com/cdn/shop/files/9dd6dd3bb5aaa8bd77c672fe91e7b980.webp?v=1707259210&width=360'}" class="bg-white text-brand-dark font-black uppercase text-xs tracking-widest px-6 py-3 rounded-full hover:bg-brand-blue hover:text-white transition-all transform hover:scale-105">Quick View</button>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <div data-aos="fade-up" class="group bg-white/80 dark:bg-slate-800/80 backdrop-blur-md rounded-3xl p-5 shadow-lg border border-gray-100 dark:border-slate-700 hover:border-brand-blue transition-all duration-300 flex flex-col h-full relative pointer-events-auto" x-data="{ hover: false }" @mouseenter="hover = true" @mouseleave="hover = false">
+                    <div class="relative rounded-2xl bg-gray-100 dark:bg-slate-900 mb-5 h-64 overflow-hidden flex items-center justify-center">
+                        <span class="absolute top-4 left-4 bg-red-500 text-white text-[10px] font-black tracking-wider px-3 py-1.5 rounded-full z-20 shadow-md">SALE</span>
+                        <img x-show="!hover" loading="lazy" src="https://rc-minidrones.com/cdn/shop/files/e88g.webp?v=1702244390&width=360" class="w-full h-full object-cover absolute inset-0 z-10">
+                        <img x-show="hover" loading="lazy" src="https://rc-minidrones.com/cdn/shop/files/e88g.webp?v=1702244390&width=360" class="w-full h-full object-cover scale-110 transition-transform duration-[5s] ease-linear absolute inset-0 z-10 opacity-90">
+                        <div x-show="hover" x-transition class="absolute inset-0 z-30 flex items-center justify-center bg-black/40 backdrop-blur-sm">
+                            <button @click="quickViewOpen = true; activeProduct = {name: 'ORBITAL-E88B PRO', price: '30.76', img: 'https://rc-minidrones.com/cdn/shop/files/e88g.webp?v=1702244390&width=360'}" class="bg-white text-brand-dark font-black uppercase text-xs tracking-widest px-6 py-3 rounded-full hover:bg-brand-blue hover:text-white transition-all transform hover:scale-105">Quick View</button>
+                        </div>
+                    </div>
+                    <div class="flex-grow">
+                        <div class="flex justify-between items-start mb-2"><div class="text-[10px] text-gray-500 dark:text-gray-400 uppercase font-black tracking-widest">Selfie Drone</div><div class="text-yellow-400 text-xs"><i class="fa-solid fa-star"></i> 4.7</div></div>
+                        <h3 class="font-heading font-bold text-xl text-brand-dark dark:text-white leading-tight mb-3 group-hover:text-brand-blue transition-colors">ORBITAL-E88B PRO</h3>
+                    </div>
+                    <div class="mt-4 flex justify-between items-end pt-4 border-t border-gray-100 dark:border-slate-700">
+                        <div><span class="text-sm text-gray-400 line-through font-semibold block">$58.00</span><span class="font-black text-3xl text-brand-dark dark:text-white">$30.76</span></div>
+                        <button @click="cartCount++" @mouseenter="playHaptic" class="bg-brand-dark dark:bg-white text-white dark:text-brand-dark hover:bg-brand-blue hover:text-white w-12 h-12 rounded-2xl flex items-center justify-center transition-all hover:-translate-y-1 pointer-events-auto hover-vibrate"><i class="fa-solid fa-plus text-xl"></i></button>
                     </div>
                 </div>
-                <div class="flex-grow">
-                    <div class="flex justify-between items-start mb-2"><div class="text-[10px] text-gray-500 dark:text-gray-400 uppercase font-black tracking-widest">Pro Level GPS</div><div class="text-yellow-400 text-xs"><i class="fa-solid fa-star"></i> 4.8</div></div>
-                    <h3 class="font-heading font-bold text-xl text-brand-dark dark:text-white leading-tight mb-3 group-hover:text-brand-blue transition-colors">ORBITAL-K9032 GPS Drone</h3>
-                </div>
-                <div class="mt-4 flex justify-between items-end pt-4 border-t border-gray-100 dark:border-slate-700">
-                    <div><span class="text-sm text-gray-400 line-through font-semibold block">$95.00</span><span class="font-black text-3xl text-brand-dark dark:text-white">$88.65</span></div>
-                    <button @click="cartCount++" @mouseenter="playHaptic" class="bg-brand-dark dark:bg-white text-white dark:text-brand-dark hover:bg-brand-blue w-12 h-12 rounded-2xl flex items-center justify-center transition-all shadow-md hover:-translate-y-1 pointer-events-auto hover-vibrate"><i class="fa-solid fa-plus text-xl"></i></button>
-                </div>
-            </div>
 
-            <div data-aos="fade-up" data-aos-delay="300" class="group bg-white/80 dark:bg-slate-800/80 backdrop-blur-md rounded-3xl p-5 shadow-lg border border-gray-100 dark:border-slate-700 hover:border-brand-blue transition-all duration-300 flex flex-col h-full relative pointer-events-auto" x-data="{ hover: false }" @mouseenter="hover = true" @mouseleave="hover = false">
-                <div class="relative rounded-2xl bg-gray-100 dark:bg-slate-900 mb-5 h-64 overflow-hidden flex items-center justify-center">
-                    <span class="absolute top-4 left-4 bg-red-500 text-white text-[10px] font-black tracking-wider px-3 py-1.5 rounded-full z-20 shadow-md">SALE</span>
-                    <img x-show="!hover" loading="lazy" src="https://images.unsplash.com/photo-1473968512647-3e447244af8f?q=80&w=600&auto=format&fit=crop" class="w-full h-full object-cover absolute inset-0 z-10">
-                    <img x-show="hover" loading="lazy" src="https://images.unsplash.com/photo-1473968512647-3e447244af8f?q=80&w=600&auto=format&fit=crop" class="w-full h-full object-cover scale-110 transition-transform duration-[5s] ease-linear absolute inset-0 z-10 opacity-90">
-                    <div x-show="hover" x-transition class="absolute inset-0 z-30 flex items-center justify-center bg-black/40 backdrop-blur-sm">
-                        <button @click="quickViewOpen = true; activeProduct = {name: 'Orbital-H110 Torpedo Drone', price: '69.64', img: 'https://images.unsplash.com/photo-1473968512647-3e447244af8f?q=80&w=600&auto=format&fit=crop'}" class="bg-white text-brand-dark font-black uppercase text-xs tracking-widest px-6 py-3 rounded-full hover:bg-brand-blue hover:text-white transition-all transform hover:scale-105">Quick View</button>
+                <div data-aos="fade-up" data-aos-delay="100" class="group bg-white/80 dark:bg-slate-800/80 backdrop-blur-md rounded-3xl p-5 shadow-2xl border-2 border-brand-blue flex flex-col h-full relative overflow-hidden pointer-events-auto" x-data="{ hover: false }" @mouseenter="hover = true" @mouseleave="hover = false">
+                    <div class="absolute top-0 right-0 bg-brand-blue text-white text-[10px] font-black px-8 py-1.5 transform translate-x-6 translate-y-4 rotate-45 z-30 shadow-md uppercase tracking-widest">Best Value</div>
+                    <div class="relative rounded-2xl bg-gray-100 dark:bg-slate-900 mb-5 h-64 overflow-hidden">
+                        <span class="absolute top-4 left-4 bg-red-500 text-white text-[10px] font-black tracking-wider px-3 py-1.5 rounded-full z-20">SALE</span>
+                        <img x-show="!hover" loading="lazy" src="https://images.unsplash.com/photo-1524143986875-3b098d78b363?q=80&w=600&auto=format&fit=crop" class="w-full h-full object-cover absolute inset-0 z-10">
+                        <img x-show="hover" loading="lazy" src="https://images.unsplash.com/photo-1473968512647-3e447244af8f?q=80&w=600&auto=format&fit=crop" class="w-full h-full object-cover scale-110 transition-transform duration-[5s] ease-linear absolute inset-0 z-10 opacity-90">
+                        <div x-show="hover" x-transition class="absolute inset-0 z-30 flex items-center justify-center bg-black/40 backdrop-blur-sm">
+                            <button @click="quickViewOpen = true; activeProduct = {name: 'Orbital-V10 4K HD Drone', price: '39.50', img: 'https://images.unsplash.com/photo-1524143986875-3b098d78b363?q=80&w=600&auto=format&fit=crop'}" class="bg-white text-brand-dark font-black uppercase text-xs tracking-widest px-6 py-3 rounded-full hover:bg-brand-blue hover:text-white transition-all transform hover:scale-105">Quick View</button>
+                        </div>
+                    </div>
+                    <div class="flex-grow">
+                        <div class="flex justify-between items-start mb-2"><div class="text-[10px] text-brand-blue uppercase font-black tracking-widest">Dual Camera HD</div><div class="text-yellow-400 text-xs"><i class="fa-solid fa-star"></i> 4.9</div></div>
+                        <h3 class="font-heading font-bold text-xl text-brand-dark dark:text-white leading-tight mb-3">Orbital-V10 4K HD Drone</h3>
+                    </div>
+                    <div class="mt-4 flex justify-between items-end pt-4 border-t border-gray-100 dark:border-slate-700">
+                        <div><span class="text-sm text-gray-400 line-through font-semibold block">$59.00</span><span class="font-black text-3xl text-brand-dark dark:text-white">$39.50</span></div>
+                        <button @click="cartCount++" @mouseenter="playHaptic" class="bg-brand-blue text-white w-12 h-12 rounded-2xl flex items-center justify-center transition-all shadow-glow hover:-translate-y-1 hover:scale-105 pointer-events-auto hover-vibrate"><i class="fa-solid fa-cart-plus text-xl"></i></button>
                     </div>
                 </div>
-                <div class="flex-grow">
-                    <div class="flex justify-between items-start mb-2"><div class="text-[10px] text-gray-500 dark:text-gray-400 uppercase font-black tracking-widest">Tactical Series</div><div class="text-yellow-400 text-xs"><i class="fa-solid fa-star"></i> 4.5</div></div>
-                    <h3 class="font-heading font-bold text-xl text-brand-dark dark:text-white leading-tight mb-3 group-hover:text-brand-blue transition-colors">Orbital-H110 Torpedo Drone</h3>
-                </div>
-                <div class="mt-4 flex justify-between items-end pt-4 border-t border-gray-100 dark:border-slate-700">
-                    <div><span class="text-sm text-gray-400 line-through font-semibold block">$88.43</span><span class="font-black text-3xl text-brand-dark dark:text-white">$69.64</span></div>
-                    <button @click="cartCount++" @mouseenter="playHaptic" class="bg-brand-dark dark:bg-white text-white dark:text-brand-dark hover:bg-brand-blue w-12 h-12 rounded-2xl flex items-center justify-center transition-all shadow-md hover:-translate-y-1 pointer-events-auto hover-vibrate"><i class="fa-solid fa-plus text-xl"></i></button>
-                </div>
-            </div>
-
-            <div data-aos="fade-up" data-aos-delay="400" class="group bg-white/80 dark:bg-slate-800/80 backdrop-blur-md rounded-3xl p-5 shadow-lg border border-gray-100 dark:border-slate-700 hover:border-brand-blue transition-all duration-300 flex flex-col h-full relative pointer-events-auto" x-data="{ hover: false }" @mouseenter="hover = true" @mouseleave="hover = false">
-                <div class="relative rounded-2xl bg-gray-100 dark:bg-slate-900 mb-5 h-64 overflow-hidden flex items-center justify-center">
-                    <span class="absolute top-4 left-4 bg-red-500 text-white text-[10px] font-black tracking-wider px-3 py-1.5 rounded-full z-20 shadow-md">SALE</span>
-                    <img x-show="!hover" loading="lazy" src="https://images.unsplash.com/photo-1506624183912-c602f4a21ca7?q=80&w=600&auto=format&fit=crop" class="w-full h-full object-cover absolute inset-0 z-10">
-                    <img x-show="hover" loading="lazy" src="https://images.unsplash.com/photo-1506624183912-c602f4a21ca7?q=80&w=600&auto=format&fit=crop" class="w-full h-full object-cover scale-110 transition-transform duration-[5s] ease-linear absolute inset-0 z-10 opacity-90">
-                    <div x-show="hover" x-transition class="absolute inset-0 z-30 flex items-center justify-center bg-black/40 backdrop-blur-sm">
-                        <button @click="quickViewOpen = true; activeProduct = {name: 'Lenovo Orbital-P8B Pro 8K', price: '65.10', img: 'https://images.unsplash.com/photo-1506624183912-c602f4a21ca7?q=80&w=600&auto=format&fit=crop'}" class="bg-white text-brand-dark font-black uppercase text-xs tracking-widest px-6 py-3 rounded-full hover:bg-brand-blue hover:text-white transition-all transform hover:scale-105">Quick View</button>
+                
+                <div data-aos="fade-up" data-aos-delay="200" class="group bg-white/80 dark:bg-slate-800/80 backdrop-blur-md rounded-3xl p-5 shadow-lg border border-gray-100 dark:border-slate-700 hover:border-brand-blue transition-all duration-300 flex flex-col h-full relative pointer-events-auto" x-data="{ hover: false }" @mouseenter="hover = true" @mouseleave="hover = false">
+                    <div class="relative rounded-2xl bg-gray-100 dark:bg-slate-900 mb-5 h-64 overflow-hidden flex items-center justify-center">
+                        <span class="absolute top-4 left-4 bg-red-500 text-white text-[10px] font-black tracking-wider px-3 py-1.5 rounded-full z-20 shadow-md">SALE</span>
+                        <img x-show="!hover" loading="lazy" src="https://rc-minidrones.com/cdn/shop/files/9dd6dd3bb5aaa8bd77c672fe91e7b980.webp?v=1707259210&width=360" class="w-full h-full object-cover absolute inset-0 z-10">
+                        <img x-show="hover" loading="lazy" src="https://rc-minidrones.com/cdn/shop/files/9dd6dd3bb5aaa8bd77c672fe91e7b980.webp?v=1707259210&width=360" class="w-full h-full object-cover scale-110 transition-transform duration-[5s] ease-linear absolute inset-0 z-10 opacity-90">
+                        <div x-show="hover" x-transition class="absolute inset-0 z-30 flex items-center justify-center bg-black/40 backdrop-blur-sm">
+                            <button @click="quickViewOpen = true; activeProduct = {name: 'ORBITAL-K9032 GPS Drone', price: '88.65', img: 'https://rc-minidrones.com/cdn/shop/files/9dd6dd3bb5aaa8bd77c672fe91e7b980.webp?v=1707259210&width=360'}" class="bg-white text-brand-dark font-black uppercase text-xs tracking-widest px-6 py-3 rounded-full hover:bg-brand-blue hover:text-white transition-all transform hover:scale-105">Quick View</button>
+                        </div>
+                    </div>
+                    <div class="flex-grow">
+                        <div class="flex justify-between items-start mb-2"><div class="text-[10px] text-gray-500 dark:text-gray-400 uppercase font-black tracking-widest">Pro Level GPS</div><div class="text-yellow-400 text-xs"><i class="fa-solid fa-star"></i> 4.8</div></div>
+                        <h3 class="font-heading font-bold text-xl text-brand-dark dark:text-white leading-tight mb-3 group-hover:text-brand-blue transition-colors">ORBITAL-K9032 GPS Drone</h3>
+                    </div>
+                    <div class="mt-4 flex justify-between items-end pt-4 border-t border-gray-100 dark:border-slate-700">
+                        <div><span class="text-sm text-gray-400 line-through font-semibold block">$95.00</span><span class="font-black text-3xl text-brand-dark dark:text-white">$88.65</span></div>
+                        <button @click="cartCount++" @mouseenter="playHaptic" class="bg-brand-dark dark:bg-white text-white dark:text-brand-dark hover:bg-brand-blue w-12 h-12 rounded-2xl flex items-center justify-center transition-all shadow-md hover:-translate-y-1 pointer-events-auto hover-vibrate"><i class="fa-solid fa-plus text-xl"></i></button>
                     </div>
                 </div>
-                <div class="flex-grow">
-                    <div class="flex justify-between items-start mb-2"><div class="text-[10px] text-gray-500 dark:text-gray-400 uppercase font-black tracking-widest">Advance Drones</div><div class="text-yellow-400 text-xs"><i class="fa-solid fa-star"></i> 4.6</div></div>
-                    <h3 class="font-heading font-bold text-xl text-brand-dark dark:text-white leading-tight mb-3 group-hover:text-brand-blue transition-colors">Lenovo Orbital-P8B Pro 8K</h3>
-                </div>
-                <div class="mt-4 flex justify-between items-end pt-4 border-t border-gray-100 dark:border-slate-700">
-                    <div><span class="text-sm text-gray-400 line-through font-semibold block">$91.54</span><span class="font-black text-3xl text-brand-dark dark:text-white">$65.10</span></div>
-                    <button @click="cartCount++" @mouseenter="playHaptic" class="bg-brand-dark dark:bg-white text-white dark:text-brand-dark hover:bg-brand-blue w-12 h-12 rounded-2xl flex items-center justify-center transition-all shadow-md hover:-translate-y-1 pointer-events-auto hover-vibrate"><i class="fa-solid fa-plus text-xl"></i></button>
-                </div>
-            </div>
 
-            <div data-aos="fade-up" data-aos-delay="500" class="group bg-white/50 dark:bg-slate-800/50 backdrop-blur-sm rounded-3xl p-5 shadow-sm border border-gray-100 dark:border-slate-700 flex flex-col h-full relative pointer-events-auto opacity-75">
-                <div class="relative rounded-2xl bg-gray-100 dark:bg-slate-900 mb-5 h-64 overflow-hidden flex items-center justify-center">
-                    <span class="absolute top-4 left-4 bg-gray-600 text-white text-[10px] font-black tracking-wider px-3 py-1.5 rounded-full z-20 shadow-md">SOLD OUT</span>
-                    <img loading="lazy" src="https://images.unsplash.com/photo-1517420704952-d9f39e95b43e?q=80&w=600&auto=format&fit=crop" class="w-full h-full object-cover absolute inset-0 z-10 grayscale mix-blend-multiply dark:mix-blend-luminosity opacity-50">
+                <div data-aos="fade-up" data-aos-delay="300" class="group bg-white/80 dark:bg-slate-800/80 backdrop-blur-md rounded-3xl p-5 shadow-lg border border-gray-100 dark:border-slate-700 hover:border-brand-blue transition-all duration-300 flex flex-col h-full relative pointer-events-auto" x-data="{ hover: false }" @mouseenter="hover = true" @mouseleave="hover = false">
+                    <div class="relative rounded-2xl bg-gray-100 dark:bg-slate-900 mb-5 h-64 overflow-hidden flex items-center justify-center">
+                        <span class="absolute top-4 left-4 bg-red-500 text-white text-[10px] font-black tracking-wider px-3 py-1.5 rounded-full z-20 shadow-md">SALE</span>
+                        <img x-show="!hover" loading="lazy" src="https://images.unsplash.com/photo-1473968512647-3e447244af8f?q=80&w=600&auto=format&fit=crop" class="w-full h-full object-cover absolute inset-0 z-10">
+                        <img x-show="hover" loading="lazy" src="https://images.unsplash.com/photo-1473968512647-3e447244af8f?q=80&w=600&auto=format&fit=crop" class="w-full h-full object-cover scale-110 transition-transform duration-[5s] ease-linear absolute inset-0 z-10 opacity-90">
+                        <div x-show="hover" x-transition class="absolute inset-0 z-30 flex items-center justify-center bg-black/40 backdrop-blur-sm">
+                            <button @click="quickViewOpen = true; activeProduct = {name: 'Orbital-H110 Torpedo Drone', price: '69.64', img: 'https://images.unsplash.com/photo-1473968512647-3e447244af8f?q=80&w=600&auto=format&fit=crop'}" class="bg-white text-brand-dark font-black uppercase text-xs tracking-widest px-6 py-3 rounded-full hover:bg-brand-blue hover:text-white transition-all transform hover:scale-105">Quick View</button>
+                        </div>
+                    </div>
+                    <div class="flex-grow">
+                        <div class="flex justify-between items-start mb-2"><div class="text-[10px] text-gray-500 dark:text-gray-400 uppercase font-black tracking-widest">Tactical Series</div><div class="text-yellow-400 text-xs"><i class="fa-solid fa-star"></i> 4.5</div></div>
+                        <h3 class="font-heading font-bold text-xl text-brand-dark dark:text-white leading-tight mb-3 group-hover:text-brand-blue transition-colors">Orbital-H110 Torpedo Drone</h3>
+                    </div>
+                    <div class="mt-4 flex justify-between items-end pt-4 border-t border-gray-100 dark:border-slate-700">
+                        <div><span class="text-sm text-gray-400 line-through font-semibold block">$88.43</span><span class="font-black text-3xl text-brand-dark dark:text-white">$69.64</span></div>
+                        <button @click="cartCount++" @mouseenter="playHaptic" class="bg-brand-dark dark:bg-white text-white dark:text-brand-dark hover:bg-brand-blue w-12 h-12 rounded-2xl flex items-center justify-center transition-all shadow-md hover:-translate-y-1 pointer-events-auto hover-vibrate"><i class="fa-solid fa-plus text-xl"></i></button>
+                    </div>
                 </div>
-                <div class="flex-grow">
-                    <div class="flex justify-between items-start mb-2"><div class="text-[10px] text-gray-400 uppercase font-black tracking-widest">Intermediate Drones</div></div>
-                    <h3 class="font-heading font-bold text-xl text-gray-500 leading-tight mb-3">New ORBITAL-C10 Max 1200M</h3>
+
+                <div data-aos="fade-up" data-aos-delay="400" class="group bg-white/80 dark:bg-slate-800/80 backdrop-blur-md rounded-3xl p-5 shadow-lg border border-gray-100 dark:border-slate-700 hover:border-brand-blue transition-all duration-300 flex flex-col h-full relative pointer-events-auto" x-data="{ hover: false }" @mouseenter="hover = true" @mouseleave="hover = false">
+                    <div class="relative rounded-2xl bg-gray-100 dark:bg-slate-900 mb-5 h-64 overflow-hidden flex items-center justify-center">
+                        <span class="absolute top-4 left-4 bg-red-500 text-white text-[10px] font-black tracking-wider px-3 py-1.5 rounded-full z-20 shadow-md">SALE</span>
+                        <img x-show="!hover" loading="lazy" src="https://images.unsplash.com/photo-1506624183912-c602f4a21ca7?q=80&w=600&auto=format&fit=crop" class="w-full h-full object-cover absolute inset-0 z-10">
+                        <img x-show="hover" loading="lazy" src="https://images.unsplash.com/photo-1506624183912-c602f4a21ca7?q=80&w=600&auto=format&fit=crop" class="w-full h-full object-cover scale-110 transition-transform duration-[5s] ease-linear absolute inset-0 z-10 opacity-90">
+                        <div x-show="hover" x-transition class="absolute inset-0 z-30 flex items-center justify-center bg-black/40 backdrop-blur-sm">
+                            <button @click="quickViewOpen = true; activeProduct = {name: 'Lenovo Orbital-P8B Pro 8K', price: '65.10', img: 'https://images.unsplash.com/photo-1506624183912-c602f4a21ca7?q=80&w=600&auto=format&fit=crop'}" class="bg-white text-brand-dark font-black uppercase text-xs tracking-widest px-6 py-3 rounded-full hover:bg-brand-blue hover:text-white transition-all transform hover:scale-105">Quick View</button>
+                        </div>
+                    </div>
+                    <div class="flex-grow">
+                        <div class="flex justify-between items-start mb-2"><div class="text-[10px] text-gray-500 dark:text-gray-400 uppercase font-black tracking-widest">Advance Drones</div><div class="text-yellow-400 text-xs"><i class="fa-solid fa-star"></i> 4.6</div></div>
+                        <h3 class="font-heading font-bold text-xl text-brand-dark dark:text-white leading-tight mb-3 group-hover:text-brand-blue transition-colors">Lenovo Orbital-P8B Pro 8K</h3>
+                    </div>
+                    <div class="mt-4 flex justify-between items-end pt-4 border-t border-gray-100 dark:border-slate-700">
+                        <div><span class="text-sm text-gray-400 line-through font-semibold block">$91.54</span><span class="font-black text-3xl text-brand-dark dark:text-white">$65.10</span></div>
+                        <button @click="cartCount++" @mouseenter="playHaptic" class="bg-brand-dark dark:bg-white text-white dark:text-brand-dark hover:bg-brand-blue w-12 h-12 rounded-2xl flex items-center justify-center transition-all shadow-md hover:-translate-y-1 pointer-events-auto hover-vibrate"><i class="fa-solid fa-plus text-xl"></i></button>
+                    </div>
                 </div>
-                <div class="mt-4 flex justify-between items-end pt-4 border-t border-gray-100 dark:border-slate-700">
-                    <div><span class="text-sm text-gray-300 line-through font-semibold block">$48.76</span><span class="font-black text-3xl text-gray-400">$39.99</span></div>
-                    <button disabled class="bg-gray-200 dark:bg-slate-700 text-gray-400 w-12 h-12 rounded-2xl flex items-center justify-center cursor-not-allowed"><i class="fa-solid fa-ban text-xl"></i></button>
+
+                <div data-aos="fade-up" data-aos-delay="500" class="group bg-white/50 dark:bg-slate-800/50 backdrop-blur-sm rounded-3xl p-5 shadow-sm border border-gray-100 dark:border-slate-700 flex flex-col h-full relative pointer-events-auto opacity-75">
+                    <div class="relative rounded-2xl bg-gray-100 dark:bg-slate-900 mb-5 h-64 overflow-hidden flex items-center justify-center">
+                        <span class="absolute top-4 left-4 bg-gray-600 text-white text-[10px] font-black tracking-wider px-3 py-1.5 rounded-full z-20 shadow-md">SOLD OUT</span>
+                        <img loading="lazy" src="https://images.unsplash.com/photo-1517420704952-d9f39e95b43e?q=80&w=600&auto=format&fit=crop" class="w-full h-full object-cover absolute inset-0 z-10 grayscale mix-blend-multiply dark:mix-blend-luminosity opacity-50">
+                    </div>
+                    <div class="flex-grow">
+                        <div class="flex justify-between items-start mb-2"><div class="text-[10px] text-gray-400 uppercase font-black tracking-widest">Intermediate Drones</div></div>
+                        <h3 class="font-heading font-bold text-xl text-gray-500 leading-tight mb-3">New ORBITAL-C10 Max 1200M</h3>
+                    </div>
+                    <div class="mt-4 flex justify-between items-end pt-4 border-t border-gray-100 dark:border-slate-700">
+                        <div><span class="text-sm text-gray-300 line-through font-semibold block">$48.76</span><span class="font-black text-3xl text-gray-400">$39.99</span></div>
+                        <button disabled class="bg-gray-200 dark:bg-slate-700 text-gray-400 w-12 h-12 rounded-2xl flex items-center justify-center cursor-not-allowed"><i class="fa-solid fa-ban text-xl"></i></button>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 mb-12 relative z-20 pointer-events-none">
-        <div data-aos="flip-up" class="bg-red-50/90 dark:bg-red-900/20 backdrop-blur-md rounded-2xl border-l-8 border-red-500 p-6 sm:p-8 flex flex-col sm:flex-row gap-6 items-center pointer-events-auto shadow-lg">
-            <div class="text-red-500 text-4xl animate-pulse"><i class="fa-solid fa-triangle-exclamation"></i></div>
-            <div>
-                <h3 class="text-lg font-heading font-black text-red-900 dark:text-red-400 uppercase tracking-widest mb-1">Safety First</h3>
-                <p class="text-red-700 dark:text-red-200/80 text-sm font-medium">For recreation use only. Illegal modification of drones/planes is prohibited. Please adhere to local laws and aviation regulations to ensure safe and legal use. <strong>"Enjoy responsibly!"</strong></p>
+    <section class="glass-overlay-section py-20 pointer-events-none">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-16">
+            <div data-aos="flip-up" class="bg-red-50/90 dark:bg-red-900/20 backdrop-blur-md rounded-2xl border-l-8 border-red-500 p-6 sm:p-8 flex flex-col sm:flex-row gap-6 items-center pointer-events-auto shadow-lg">
+                <div class="text-red-500 text-4xl animate-pulse"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                <div>
+                    <h3 class="text-lg font-heading font-black text-red-900 dark:text-red-400 uppercase tracking-widest mb-1">Safety First</h3>
+                    <p class="text-red-700 dark:text-red-200/80 text-sm font-medium">For recreation use only. Illegal modification of drones/planes is prohibited. Please adhere to local laws and aviation regulations to ensure safe and legal use. <strong>"Enjoy responsibly!"</strong></p>
+                </div>
             </div>
         </div>
-    </section>
 
-    <section class="py-20 relative z-20 pointer-events-none">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pointer-events-auto">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
                 <div data-aos="fade-up" data-aos-delay="0" class="bg-white/80 dark:bg-slate-800/80 backdrop-blur-xl p-8 rounded-3xl border border-gray-100 dark:border-slate-700 text-center flex flex-col items-center shadow-lg">
                     <div class="w-16 h-16 bg-brand-blue/10 dark:bg-brand-blue/20 rounded-2xl flex items-center justify-center text-brand-blue text-2xl mb-6">
-                        <i class="fa-solid fa-box-fast"></i>
+                        <i class="fa-solid fa-truck-fast"></i>
                     </div>
                     <h3 class="text-brand-dark dark:text-white font-heading font-black text-xl mb-3">Fast Shipping</h3>
                     <p class="text-gray-500 dark:text-gray-400 text-sm leading-relaxed font-medium">We process and ship out orders lightning fast so you can get into the sky sooner.</p>
@@ -419,7 +458,7 @@
         </div>
     </section>
 
-    <section class="bg-slate-100/80 dark:bg-slate-800/50 backdrop-blur-md py-20 border-y border-gray-200 dark:border-slate-800 relative z-20 pointer-events-none">
+    <section class="glass-overlay-section py-20 pointer-events-none">
         <div class="max-w-6xl mx-auto px-4 text-center">
             <h2 data-aos="fade-down" class="text-3xl font-heading font-black text-brand-dark dark:text-white mb-2 uppercase tracking-tight">Frequently Bought Together</h2>
             <p data-aos="fade-up" class="text-gray-500 dark:text-gray-400 mb-12 font-medium">Upgrade your setup instantly and save on shipping.</p>
@@ -458,46 +497,48 @@
         </div>
     </section>
 
-    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 relative z-20 pointer-events-none">
-        <div class="text-center mb-16" data-aos="fade-up">
-            <h2 class="text-3xl font-heading font-black text-brand-dark dark:text-white uppercase tracking-tight">Tech Specs at a Glance</h2>
-            <p class="text-gray-500 dark:text-gray-400 mt-2 font-medium">Find the perfect power-to-weight ratio.</p>
-        </div>
-        
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center pointer-events-auto">
-            <div data-aos="zoom-in" data-aos-delay="0" class="p-8 rounded-[2rem] bg-white/80 dark:bg-slate-800/80 backdrop-blur-xl border border-gray-200 dark:border-slate-700 shadow-xl">
-                <i class="fa-solid fa-leaf text-4xl text-gray-400 mb-6"></i>
-                <h4 class="font-black text-xl mb-6 dark:text-white uppercase tracking-widest">Beginner</h4>
-                <ul class="text-sm text-gray-600 dark:text-gray-300 space-y-4 font-bold">
-                    <li><i class="fa-solid fa-battery-half text-brand-blue mr-3"></i> 8-10 Min Flight</li>
-                    <li><i class="fa-solid fa-compress text-brand-blue mr-3"></i> Altitude Hold</li>
-                    <li><i class="fa-solid fa-arrow-up text-brand-blue mr-3"></i> One-Key Takeoff</li>
-                </ul>
+    <section class="glass-overlay-section py-24 pointer-events-none">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-3xl font-heading font-black text-brand-dark dark:text-white uppercase tracking-tight">Tech Specs at a Glance</h2>
+                <p class="text-gray-500 dark:text-gray-400 mt-2 font-medium">Find the perfect power-to-weight ratio.</p>
             </div>
-            <div data-aos="zoom-in" data-aos-delay="100" class="p-10 rounded-[2rem] bg-brand-blue/90 backdrop-blur-xl text-white shadow-glow transform md:-translate-y-4 relative border border-blue-400">
-                <span class="absolute -top-4 left-1/2 -translate-x-1/2 bg-yellow-400 text-brand-dark text-[10px] font-black px-4 py-1 rounded-full uppercase tracking-widest">Sweet Spot</span>
-                <i class="fa-solid fa-wind text-4xl text-white/50 mb-6"></i>
-                <h4 class="font-black text-xl mb-6 uppercase tracking-widest">Intermediate</h4>
-                <ul class="text-sm text-blue-100 space-y-4 font-bold">
-                    <li><i class="fa-solid fa-battery-three-quarters text-yellow-400 mr-3"></i> 15-18 Min Flight</li>
-                    <li><i class="fa-solid fa-video text-yellow-400 mr-3"></i> 4K HD Camera</li>
-                    <li><i class="fa-solid fa-rotate text-yellow-400 mr-3"></i> 360° Stunt Flips</li>
-                </ul>
-            </div>
-            <div data-aos="zoom-in" data-aos-delay="200" class="p-8 rounded-[2rem] bg-slate-900/90 dark:bg-slate-950/90 backdrop-blur-xl text-white shadow-xl border border-slate-700">
-                <i class="fa-solid fa-rocket text-4xl text-purple-500 mb-6"></i>
-                <h4 class="font-black text-xl mb-6 uppercase tracking-widest">Advanced</h4>
-                <ul class="text-sm text-gray-400 space-y-4 font-bold">
-                    <li><i class="fa-solid fa-battery-full text-purple-500 mr-3"></i> 25+ Min Flight</li>
-                    <li><i class="fa-solid fa-camera text-purple-500 mr-3"></i> 8K UHD Dual Cam</li>
-                    <li><i class="fa-solid fa-map-location-dot text-purple-500 mr-3"></i> GPS Return Home</li>
-                </ul>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center pointer-events-auto">
+                <div data-aos="zoom-in" data-aos-delay="0" class="p-8 rounded-[2rem] bg-white/80 dark:bg-slate-800/80 backdrop-blur-xl border border-gray-200 dark:border-slate-700 shadow-xl">
+                    <i class="fa-solid fa-leaf text-4xl text-gray-400 mb-6"></i>
+                    <h4 class="font-black text-xl mb-6 dark:text-white uppercase tracking-widest">Beginner</h4>
+                    <ul class="text-sm text-gray-600 dark:text-gray-300 space-y-4 font-bold">
+                        <li><i class="fa-solid fa-battery-half text-brand-blue mr-3"></i> 8-10 Min Flight</li>
+                        <li><i class="fa-solid fa-compress text-brand-blue mr-3"></i> Altitude Hold</li>
+                        <li><i class="fa-solid fa-arrow-up text-brand-blue mr-3"></i> One-Key Takeoff</li>
+                    </ul>
+                </div>
+                <div data-aos="zoom-in" data-aos-delay="100" class="p-10 rounded-[2rem] bg-brand-blue/90 backdrop-blur-xl text-white shadow-glow transform md:-translate-y-4 relative border border-blue-400">
+                    <span class="absolute -top-4 left-1/2 -translate-x-1/2 bg-yellow-400 text-brand-dark text-[10px] font-black px-4 py-1 rounded-full uppercase tracking-widest">Sweet Spot</span>
+                    <i class="fa-solid fa-wind text-4xl text-white/50 mb-6"></i>
+                    <h4 class="font-black text-xl mb-6 uppercase tracking-widest">Intermediate</h4>
+                    <ul class="text-sm text-blue-100 space-y-4 font-bold">
+                        <li><i class="fa-solid fa-battery-three-quarters text-yellow-400 mr-3"></i> 15-18 Min Flight</li>
+                        <li><i class="fa-solid fa-video text-yellow-400 mr-3"></i> 4K HD Camera</li>
+                        <li><i class="fa-solid fa-rotate text-yellow-400 mr-3"></i> 360° Stunt Flips</li>
+                    </ul>
+                </div>
+                <div data-aos="zoom-in" data-aos-delay="200" class="p-8 rounded-[2rem] bg-slate-900/90 dark:bg-slate-950/90 backdrop-blur-xl text-white shadow-xl border border-slate-700">
+                    <i class="fa-solid fa-rocket text-4xl text-purple-500 mb-6"></i>
+                    <h4 class="font-black text-xl mb-6 uppercase tracking-widest">Advanced</h4>
+                    <ul class="text-sm text-gray-400 space-y-4 font-bold">
+                        <li><i class="fa-solid fa-battery-full text-purple-500 mr-3"></i> 25+ Min Flight</li>
+                        <li><i class="fa-solid fa-camera text-purple-500 mr-3"></i> 8K UHD Dual Cam</li>
+                        <li><i class="fa-solid fa-map-location-dot text-purple-500 mr-3"></i> GPS Return Home</li>
+                    </ul>
+                </div>
             </div>
         </div>
     </section>
 
-    <section class="py-20 relative z-20 pointer-events-none">
-        <div class="max-w-7xl mx-auto px-4 pointer-events-auto">
+    <section class="glass-overlay-section py-20 pointer-events-none">
+        <div class="max-w-7xl mx-auto px-4 pointer-events-auto overflow-hidden">
             <div class="flex flex-col md:flex-row items-center justify-between mb-12" data-aos="fade-up">
                 <h2 class="text-3xl font-heading font-black text-brand-dark dark:text-white uppercase tracking-tight">Pilot Testimonials</h2>
                 <div class="flex gap-2 text-yellow-400 mt-4 md:mt-0 text-xl">
@@ -506,36 +547,60 @@
                 </div>
             </div>
             
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div data-aos="fade-right" data-aos-delay="0" class="bg-white/80 dark:bg-slate-800/80 backdrop-blur-xl p-8 rounded-3xl border border-gray-100 dark:border-slate-700 relative shadow-xl">
+            <div class="flex overflow-x-auto snap-x snap-mandatory gap-8 pb-12 pt-4 hide-scrollbar w-full" style="-ms-overflow-style: none; scrollbar-width: none;">
+                <div data-aos="fade-up" data-aos-delay="0" class="snap-center shrink-0 w-[85vw] md:w-[400px] bg-white/80 dark:bg-slate-800/80 backdrop-blur-xl p-8 rounded-3xl border border-gray-100 dark:border-slate-700 relative shadow-xl">
                     <i class="fa-solid fa-quote-left text-4xl text-brand-blue/20 absolute top-6 right-6"></i>
                     <p class="italic text-gray-600 dark:text-gray-300 font-medium mb-6 leading-relaxed">"The Orbital-K9032 is incredible. Crashed it twice into my fence and it flies perfectly. The GPS feature is a lifesaver!"</p>
-                    <div class="flex items-center gap-4 border-t border-gray-200 dark:border-slate-700 pt-4">
+                    <div class="flex items-center gap-4 border-t border-gray-200 dark:border-slate-700 pt-4 mt-auto">
                         <div class="w-12 h-12 rounded-full bg-brand-blue text-white flex items-center justify-center font-black text-lg">JD</div>
                         <div><div class="font-bold text-brand-dark dark:text-white">Jason D.</div><div class="text-[10px] text-green-500 uppercase font-black tracking-widest"><i class="fa-solid fa-badge-check"></i> Verified Buyer</div></div>
                     </div>
                 </div>
-                <div data-aos="fade-up" data-aos-delay="100" class="bg-white/80 dark:bg-slate-800/80 backdrop-blur-xl p-8 rounded-3xl border border-gray-100 dark:border-slate-700 relative shadow-xl">
+                <div data-aos="fade-up" data-aos-delay="100" class="snap-center shrink-0 w-[85vw] md:w-[400px] bg-white/80 dark:bg-slate-800/80 backdrop-blur-xl p-8 rounded-3xl border border-gray-100 dark:border-slate-700 relative shadow-xl">
                     <i class="fa-solid fa-quote-left text-4xl text-brand-blue/20 absolute top-6 right-6"></i>
                     <p class="italic text-gray-600 dark:text-gray-300 font-medium mb-6 leading-relaxed">"Got the V10 4K for my son's 12th birthday. The dual camera quality blew me away for the price. Unbeatable value."</p>
-                    <div class="flex items-center gap-4 border-t border-gray-200 dark:border-slate-700 pt-4">
+                    <div class="flex items-center gap-4 border-t border-gray-200 dark:border-slate-700 pt-4 mt-auto">
                         <div class="w-12 h-12 rounded-full bg-brand-accent text-white flex items-center justify-center font-black text-lg">MT</div>
                         <div><div class="font-bold text-brand-dark dark:text-white">Mark T.</div><div class="text-[10px] text-green-500 uppercase font-black tracking-widest"><i class="fa-solid fa-badge-check"></i> Verified Buyer</div></div>
                     </div>
                 </div>
-                <div data-aos="fade-left" data-aos-delay="200" class="bg-white/80 dark:bg-slate-800/80 backdrop-blur-xl p-8 rounded-3xl border border-gray-100 dark:border-slate-700 relative shadow-xl">
+                <div data-aos="fade-up" data-aos-delay="200" class="snap-center shrink-0 w-[85vw] md:w-[400px] bg-white/80 dark:bg-slate-800/80 backdrop-blur-xl p-8 rounded-3xl border border-gray-100 dark:border-slate-700 relative shadow-xl">
                     <i class="fa-solid fa-quote-left text-4xl text-brand-blue/20 absolute top-6 right-6"></i>
                     <p class="italic text-gray-600 dark:text-gray-300 font-medium mb-6 leading-relaxed">"Fastest shipping I've ever experienced. Ordered on Tuesday, was flying in my backyard by Thursday afternoon."</p>
-                    <div class="flex items-center gap-4 border-t border-gray-200 dark:border-slate-700 pt-4">
+                    <div class="flex items-center gap-4 border-t border-gray-200 dark:border-slate-700 pt-4 mt-auto">
                         <div class="w-12 h-12 rounded-full bg-purple-500 text-white flex items-center justify-center font-black text-lg">SW</div>
                         <div><div class="font-bold text-brand-dark dark:text-white">Sarah W.</div><div class="text-[10px] text-green-500 uppercase font-black tracking-widest"><i class="fa-solid fa-badge-check"></i> Verified Buyer</div></div>
+                    </div>
+                </div>
+                <div class="snap-center shrink-0 w-[85vw] md:w-[400px] bg-white/80 dark:bg-slate-800/80 backdrop-blur-xl p-8 rounded-3xl border border-gray-100 dark:border-slate-700 relative shadow-xl">
+                    <i class="fa-solid fa-quote-left text-4xl text-brand-blue/20 absolute top-6 right-6"></i>
+                    <p class="italic text-gray-600 dark:text-gray-300 font-medium mb-6 leading-relaxed">"Never thought I could afford a drone with tracking capabilities. The Tactical Series exceeded every expectation I had."</p>
+                    <div class="flex items-center gap-4 border-t border-gray-200 dark:border-slate-700 pt-4 mt-auto">
+                        <div class="w-12 h-12 rounded-full bg-blue-400 text-white flex items-center justify-center font-black text-lg">EL</div>
+                        <div><div class="font-bold text-brand-dark dark:text-white">Elijah L.</div><div class="text-[10px] text-green-500 uppercase font-black tracking-widest"><i class="fa-solid fa-badge-check"></i> Verified Buyer</div></div>
+                    </div>
+                </div>
+                <div class="snap-center shrink-0 w-[85vw] md:w-[400px] bg-white/80 dark:bg-slate-800/80 backdrop-blur-xl p-8 rounded-3xl border border-gray-100 dark:border-slate-700 relative shadow-xl">
+                    <i class="fa-solid fa-quote-left text-4xl text-brand-blue/20 absolute top-6 right-6"></i>
+                    <p class="italic text-gray-600 dark:text-gray-300 font-medium mb-6 leading-relaxed">"The quiz matched me with the exact drone I needed. Highly recommend taking it if you are a complete beginner like me."</p>
+                    <div class="flex items-center gap-4 border-t border-gray-200 dark:border-slate-700 pt-4 mt-auto">
+                        <div class="w-12 h-12 rounded-full bg-emerald-500 text-white flex items-center justify-center font-black text-lg">RK</div>
+                        <div><div class="font-bold text-brand-dark dark:text-white">Rachel K.</div><div class="text-[10px] text-green-500 uppercase font-black tracking-widest"><i class="fa-solid fa-badge-check"></i> Verified Buyer</div></div>
+                    </div>
+                </div>
+                <div class="snap-center shrink-0 w-[85vw] md:w-[400px] bg-white/80 dark:bg-slate-800/80 backdrop-blur-xl p-8 rounded-3xl border border-gray-100 dark:border-slate-700 relative shadow-xl">
+                    <i class="fa-solid fa-quote-left text-4xl text-brand-blue/20 absolute top-6 right-6"></i>
+                    <p class="italic text-gray-600 dark:text-gray-300 font-medium mb-6 leading-relaxed">"Purchased the bundle deal. The extra battery and memory stick made it so much better for weekend trips. Worth it."</p>
+                    <div class="flex items-center gap-4 border-t border-gray-200 dark:border-slate-700 pt-4 mt-auto">
+                        <div class="w-12 h-12 rounded-full bg-brand-dark text-white flex items-center justify-center font-black text-lg">BP</div>
+                        <div><div class="font-bold text-brand-dark dark:text-white">Brian P.</div><div class="text-[10px] text-green-500 uppercase font-black tracking-widest"><i class="fa-solid fa-badge-check"></i> Verified Buyer</div></div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="py-24 relative z-20 pointer-events-none">
+    <section class="glass-overlay-section py-24 pointer-events-none">
         <div class="max-w-4xl mx-auto px-4 text-center pointer-events-auto bg-white/80 dark:bg-slate-800/80 backdrop-blur-xl p-12 rounded-[3rem] shadow-2xl border border-gray-100 dark:border-slate-700">
             <h2 data-aos="zoom-in" class="text-3xl font-heading font-black text-brand-dark dark:text-white mb-4">JOIN THE SQUADRON</h2>
             <p data-aos="fade-up" data-aos-delay="100" class="text-gray-500 dark:text-gray-400 mb-8 max-w-xl mx-auto font-medium">Subscribe to get special offers, free giveaways, and once-in-a-lifetime deals delivered straight to your inbox.</p>
@@ -546,8 +611,12 @@
         </div>
     </section>
 
-    <footer class="bg-slate-950 pt-20 pb-24 lg:pb-10 border-t-8 border-brand-blue relative z-20 pointer-events-none overflow-hidden">
-        <div class="absolute -bottom-[40%] -right-[15%] w-[800px] h-[800px] bg-brand-blue/40 rounded-full blur-[150px] pointer-events-none z-0"></div>
+    <footer class="glass-overlay-section bg-slate-950 pt-20 pb-24 lg:pb-10 border-t-8 border-brand-blue relative z-20 pointer-events-none overflow-hidden !rounded-t-[3rem]">
+        
+        <div class="absolute -bottom-[20%] -right-[10%] w-[600px] h-[600px] bg-brand-blue/30 rounded-full blur-[120px] pointer-events-none z-0 animate-pulse mix-blend-screen"></div>
+        <div class="absolute -bottom-[30%] left-[10%] w-[500px] h-[500px] bg-purple-600/30 rounded-full blur-[150px] pointer-events-none z-0 mix-blend-screen" style="animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;"></div>
+        <div class="absolute top-[10%] left-[40%] w-[400px] h-[400px] bg-brand-accent/20 rounded-full blur-[100px] pointer-events-none z-0 mix-blend-screen" style="animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite reverse;"></div>
+
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pointer-events-auto relative z-10">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
                 <div data-aos="fade-up" data-aos-delay="0">
@@ -658,21 +727,82 @@
         scene.add(worldGroup);
         camera.position.z = 5;
 
-        // Procedural generator
+        // Improved Procedural generator
         function createProceduralDrone() {
             const drone = new THREE.Group();
-            const body = new THREE.Mesh(new THREE.BoxGeometry(1, 0.3, 1), new THREE.MeshStandardMaterial({ color: 0x1e293b }));
+            
+            // Main Body Core
+            const bodyGeo = new THREE.CylinderGeometry(0.5, 0.4, 0.25, 8);
+            const bodyMat = new THREE.MeshStandardMaterial({ color: 0x1e293b, roughness: 0.3, metalness: 0.8 });
+            const body = new THREE.Mesh(bodyGeo, bodyMat);
             drone.add(body);
+
+            // Top Dome
+            const domeGeo = new THREE.SphereGeometry(0.3, 16, 16, 0, Math.PI * 2, 0, Math.PI / 2);
+            const domeMat = new THREE.MeshStandardMaterial({ color: 0x0f172a, roughness: 0.1, metalness: 0.9 });
+            const dome = new THREE.Mesh(domeGeo, domeMat);
+            dome.position.y = 0.125;
+            drone.add(dome);
+
+            // Camera Gimbal
+            const gimbal = new THREE.Mesh(new THREE.SphereGeometry(0.15, 16, 16), new THREE.MeshStandardMaterial({color: 0x0f172a}));
+            gimbal.position.set(0, -0.15, 0.4);
+            drone.add(gimbal);
+            const lens = new THREE.Mesh(new THREE.CylinderGeometry(0.08, 0.08, 0.1, 16), new THREE.MeshStandardMaterial({color: 0x000000, emissive: 0x111111}));
+            lens.rotation.x = Math.PI / 2;
+            lens.position.set(0, -0.15, 0.5);
+            drone.add(lens);
+
+            // Indicator Light
+            const lightGeo = new THREE.SphereGeometry(0.05, 8, 8);
+            const lightMat = new THREE.MeshBasicMaterial({ color: 0xef4444 });
+            const tailLight = new THREE.Mesh(lightGeo, lightMat);
+            tailLight.position.set(0, 0, -0.45);
+            drone.add(tailLight);
+
             drone.userData.props = [];
-            [{ x: 0.7, z: 0.7 }, { x: -0.7, z: 0.7 }, { x: 0.7, z: -0.7 }, { x: -0.7, z: -0.7 }].forEach(pos => {
-                const arm = new THREE.Mesh(new THREE.BoxGeometry(0.15, 0.1, 1.2), new THREE.MeshStandardMaterial({ color: 0x0f172a }));
-                arm.position.set(pos.x / 2, 0, pos.z / 2);
-                arm.rotation.y = Math.atan2(pos.x, pos.z);
-                drone.add(arm);
-                const prop = new THREE.Mesh(new THREE.CylinderGeometry(0.5, 0.5, 0.02, 16), new THREE.MeshStandardMaterial({ color: 0x94a3b8, transparent: true, opacity: 0.6 }));
-                prop.position.set(pos.x, 0.16, pos.z);
+            const armPositions = [
+                { x: 0.7, z: 0.7, color: 0x3b82f6 }, 
+                { x: -0.7, z: 0.7, color: 0x3b82f6 },
+                { x: 0.7, z: -0.7, color: 0xef4444 }, 
+                { x: -0.7, z: -0.7, color: 0xef4444 }
+            ];
+
+            armPositions.forEach(pos => {
+                const armGroup = new THREE.Group();
+                armGroup.position.set(pos.x/2, 0, pos.z/2);
+                armGroup.rotation.y = Math.atan2(pos.x, pos.z);
+                
+                // Arm shaft
+                const arm = new THREE.Mesh(new THREE.BoxGeometry(0.1, 0.08, 1.0), new THREE.MeshStandardMaterial({ color: 0x334155, metalness: 0.5 }));
+                armGroup.add(arm);
+                
+                // Motor housing
+                const motor = new THREE.Mesh(new THREE.CylinderGeometry(0.18, 0.18, 0.2, 16), new THREE.MeshStandardMaterial({ color: 0x0f172a }));
+                motor.position.set(0, 0.05, 0.45);
+                armGroup.add(motor);
+
+                // LED Ring under motor
+                const led = new THREE.Mesh(new THREE.CylinderGeometry(0.19, 0.19, 0.05, 16), new THREE.MeshBasicMaterial({ color: pos.color }));
+                led.position.set(0, -0.05, 0.45);
+                armGroup.add(led);
+
+                // Propeller blades
+                const prop = new THREE.Group();
+                prop.position.set(0, 0.16, 0.45);
+                
+                const centerHub = new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.05, 0.05, 8), new THREE.MeshStandardMaterial({color: 0xffffff}));
+                prop.add(centerHub);
+                
+                const bladeGeo = new THREE.BoxGeometry(1.2, 0.01, 0.1);
+                const bladeMat = new THREE.MeshStandardMaterial({ color: 0x94a3b8, transparent: true, opacity: 0.6 });
+                const blade1 = new THREE.Mesh(bladeGeo, bladeMat);
+                prop.add(blade1);
+
                 drone.userData.props.push(prop);
-                drone.add(prop);
+                armGroup.add(prop);
+                
+                drone.add(armGroup);
             });
             return drone;
         }
@@ -682,8 +812,8 @@
         const hero2 = createProceduralDrone(); hero2.position.set(-3, 2, -2); hero2.rotation.set(0.1, 0.5, 0.1);
         const catDrone = createProceduralDrone(); catDrone.position.set(-10, -11, 0); catDrone.rotation.set(0.3, 1, 0); 
         const quizDrone = createProceduralDrone(); quizDrone.position.set(2.5, -22, -8); quizDrone.rotation.set(0.1, -0.8, -0.2); 
-        const featuresDrone = createProceduralDrone(); featuresDrone.position.set(-5, -42, -5); featuresDrone.rotation.set(0.2, 0.5, 0); // New Drone for restored sections
-        const newsletterDrone = createProceduralDrone(); newsletterDrone.position.set(8, -60, -3); newsletterDrone.rotation.set(-0.2, -0.8, 0); // New Drone for restored sections
+        const featuresDrone = createProceduralDrone(); featuresDrone.position.set(-5, -42, -5); featuresDrone.rotation.set(0.2, 0.5, 0); 
+        const newsletterDrone = createProceduralDrone(); newsletterDrone.position.set(8, -60, -3); newsletterDrone.rotation.set(-0.2, -0.8, 0); 
         const footerDrone = createProceduralDrone(); footerDrone.position.set(2, -75, -5); footerDrone.rotation.set(-0.2, -0.5, 0);
 
         const activeDrones = [hero1, hero2, catDrone, quizDrone, featuresDrone, newsletterDrone, footerDrone];
@@ -732,11 +862,13 @@
 
                 activeDrones.forEach((drone, index) => {
                     if(drone !== hero1) {
-                        drone.position.y += Math.sin(time * 2 + index) * 0.003;
-                        drone.rotation.y += Math.sin(time * 0.5 + index) * 0.001;
+                        drone.position.y += Math.sin(time * 3 + index) * 0.003; 
+                        drone.position.x += Math.cos(time * 1.5 + index) * 0.002;
+                        drone.rotation.z = Math.sin(time * 2 + index) * 0.02; 
+                        drone.rotation.x = Math.cos(time * 2 + index) * 0.02; 
                     }
                     if(drone.userData.props) {
-                        drone.userData.props.forEach(prop => prop.rotation.y -= 0.5);
+                        drone.userData.props.forEach(prop => prop.rotation.y -= 0.6);
                     }
                 });
             }
